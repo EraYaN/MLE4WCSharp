@@ -115,6 +115,38 @@ namespace MLE4WCSharp
 			return true;
 		}
 		/// <summary>
+		/// Simple MATLAB plot
+		/// </summary>
+		/// <param name="ranges">Your set of ranges.</param>
+		/// <param name="power">Your set of measured signal amplitudes.</param>
+		public bool plot(double[] x, double[] y, String title = null, String xlabel = null, String ylabel = null, String legend = null)
+		{
+			matlab.Feval("plot", 1, out Dummy, x, y);
+			object first = ((object[])Dummy)[0];		
+			if (!String.IsNullOrEmpty(title))
+			{
+				Dummy = null;
+				matlab.Feval("title", 0, out Dummy, title);
+			}
+			if (!String.IsNullOrEmpty(xlabel))
+			{
+				Dummy = null;
+				matlab.Feval("xlabel", 0, out Dummy, xlabel);
+			}
+			if (!String.IsNullOrEmpty(ylabel))
+			{
+				Dummy = null;
+				matlab.Feval("ylabel", 0, out Dummy, ylabel);
+			}
+			if (!String.IsNullOrEmpty(legend))
+			{
+				Dummy = null;
+				matlab.Feval("legend", 0, out Dummy, legend);
+			}
+			Dummy = null;
+			return true;
+		}
+		/// <summary>
 		/// Clears the MATLAB workspace
 		/// </summary>
 		public bool ClearAll()
